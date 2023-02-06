@@ -1,17 +1,54 @@
 import { Field, Formik } from "formik";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
     
     const [isLogin, setIsLogin] = useState(true);
     const [isRegister, setIsRegister] = useState(false);
+    const navigate = useNavigate();
+
     
-    const createNewUser = (values) => {
-        //TODO:// LLAMAR AL API
+    const createNewUser = async(values) => {
+      
+      const loginUser = await fetch(
+        "https://97nsdaz2xh.execute-api.us-east-1.amazonaws.com/users/",
+        {
+            method: "PUT",
+            body: values,
+        }
+    );
+
+    const responseLogin = await loginUser.json();
+    if(responseLogin.status==='Ok'){
+      navigate("/home");
+    }else{
+      console.log("responseLogin -> ",responseLogin);
+      alert("Usuario o contraseña incorrectos")
+    }
     }
 
-    const logInUser = (values) => {
-        //TODO:// LLAMAR AL API AND REDIRECT
+    const logInUser = async(values) => {
+        
+
+          const loginUser = await fetch(
+              "https://97nsdaz2xh.execute-api.us-east-1.amazonaws.com/users/login",
+              {
+                  method: "POST",
+                  body: values,
+              }
+          );
+  
+          const responseLogin = await loginUser.json();
+          if(responseLogin.status==='Ok'){
+            navigate("/home");
+          }else{
+            console.log("responseLogin -> ",responseLogin);
+            alert("Usuario o contraseña incorrectos")
+          }
+      
+
+        
     }
 
     return (
@@ -100,11 +137,11 @@ const LoginPage = () => {
                                             setIsLogin(false);                                        
                                             setIsRegister(true);                                    
                                         }}>You haven't registered yet, create a new account</a>
-
                                     </form>
 
                                 </div>
-                            )}
+                            )} 
+                            
                         </Formik>
                     </div>
                 </>
@@ -141,10 +178,10 @@ const LoginPage = () => {
                           return errors;
                         }}
                         onSubmit={(values, { setSubmitting }) => {
-                          setTimeout(() => {
-                            alert(JSON.stringify(values, null, 2));
-                            setSubmitting(false);
-                          }, 400);
+                          const currentDate = new Date();
+                          const timestamp = currentDate.getTime();
+                          values["id"]=timestamp.toString();
+                          alert(values);
                           createNewUser(JSON.stringify(values, null, 2));
                         }}
                       >
@@ -217,7 +254,7 @@ const LoginPage = () => {
                                   placeholder="Password"/>
                               </div>
               
-                              <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Sing in</button>
+                              <button type="submit" className="btn btn-primary" >Sing in</button>
               
                             </form>
               

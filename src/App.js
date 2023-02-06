@@ -16,7 +16,7 @@ function App() {
     <div className="app">
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<UserPage/>}></Route>
+          <Route path='/' element={<LoginPage/>}></Route>
           <Route path='/home' element={ isAuth ?<UserPage/> : <Navigate to = "/"/>}></Route>
           <Route path='/company/:companyId' element={ isAuth ?<CompanyPage/> : <Navigate to = "/"/>}></Route>
           <Route path='/product/:productId' element={ isAuth ?<ProductPage/> : <Navigate to = "/"/>}></Route>
