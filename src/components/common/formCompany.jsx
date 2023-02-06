@@ -12,7 +12,7 @@ const FormCompany = (props) => {
         <div>
 
         <Formik
-          initialValues={{name:'', address:'', NIT:'', phoneNumber:''}}
+          initialValues={{name:props.company.name, address:props.company.address, NIT:props.company.nit, phoneNumber:props.company.phone}}
           validate={values => {
             const errors = {};
             if(!values.name){
@@ -31,10 +31,9 @@ const FormCompany = (props) => {
             return errors;
           }}
           onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 400);
+            values["id"]=props.company.id;
+            props.handleSave(JSON.stringify(values, null, 2));
+            setSubmitting(false);
           }}
         >
           {({
@@ -49,7 +48,7 @@ const FormCompany = (props) => {
           }) => (
             <div>
               <form onSubmit={handleSubmit}>
-              <div class="form-group">
+              <div className="form-group">
                   <label>Name</label>
                   <input
                     type="name"
@@ -57,12 +56,12 @@ const FormCompany = (props) => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.name}
-                    class="form-control"
+                    className="form-control"
                     id="inputName1"
                     placeholder="Enter name" />
                 </div>
                 
-                <div class="form-group">
+                <div className="form-group">
                   <label>Address</label>
                   <input
                     type="text"
@@ -70,13 +69,13 @@ const FormCompany = (props) => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.address}
-                    class="form-control"
+                    className="form-control"
                     id="InputAddress"
                     placeholder="123 Main St" />
                 </div>
 
 
-                <div class="form-group">
+                <div className="form-group">
                   <label>NIT</label>
                   <input
                     type="text"
@@ -84,26 +83,25 @@ const FormCompany = (props) => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.NIT}
-                    class="form-control"
+                    className="form-control"
                     id="NIT"
                     placeholder="..."/>
                 </div>
                
-                <div class="form-group">
+                <div className="form-group">
                   <label>Phone Number</label>
                   <input
-                    type="number"
+                    type="text"
                     name="phoneNumber"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.phoneNumber}
-                    class="form-control"
+                    className="form-control"
                     id="phoneNumber"
-                    placeholder="000000"/>
+                    placeholder=""/>
                 </div>
 
-
-                <button type="submit" class="btn btn-primary" disabled={isSubmitting}>Sing in</button>
+                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Save</button>
 
               </form>
 

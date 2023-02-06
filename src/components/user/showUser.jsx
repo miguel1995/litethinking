@@ -65,7 +65,7 @@ const ShowUser = () => {
                 <Modal isOpen={modal} toggle={toggle} >
                     <ModalHeader toggle={toggle}></ModalHeader>
                     <ModalBody>
-                        <EditUser toggle={toggle} user={user}/>
+                        <EditUser toggle={toggle} user={user} confirmSave={loadUser}/>
                     </ModalBody>
                 </Modal>
             </div>

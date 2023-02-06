@@ -34,10 +34,10 @@ const FormUser = (props) => {
                     return errors;
                 }}
                 onSubmit={(values, { setSubmitting }) => {
+                    values["id"]=props.user.id;
                     props.handleSave(JSON.stringify(values, null, 2));
                     setSubmitting(false);
                 }}
-                
             >
                 {({
                     values,

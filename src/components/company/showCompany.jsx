@@ -1,22 +1,25 @@
 import { useEffect, useState } from "react";
-import { BsFillPencilFill } from "react-icons/bs";
+import { BsFillPencilFill, BsFillPinFill, BsFillTelephoneFill } from "react-icons/bs";
+import { useParams } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import EditCompany from "./editCompany";
 
 
-const ShowCompany = (props) => {
+const ShowCompany = () => {
 
     const [company, setCompany] = useState(null);
     const [modal, setModal] = useState(false);
+    let { companyId } = useParams();
+
 
     const apiUrl = "https://97nsdaz2xh.execute-api.us-east-1.amazonaws.com"
-    const companyId = props.companyId;
     const loadCompany = async () => {
         const response = await fetch(`${apiUrl}/companies/${companyId}`, {
-            method: "GET",
-            
+            method: "GET"
             //headers: { Authorization: `Bearer ${token}` },
         });
+
+
         const data = await response.json();
         console.log(data);
         setCompany(data);
@@ -48,8 +51,8 @@ const ShowCompany = (props) => {
                     <div className="col-md-4">
                         <h1 className="display-4">{name}</h1>
                         <p className="lead">{nit}</p>
-                        <p>{address}</p>
-                        <p>{phone}</p>
+                        <p><BsFillPinFill/>{address}</p>
+                        <p> <BsFillTelephoneFill/> {phone}</p>
                         <hr className="my-4" />
                     </div>
                     <div className="col-md-3">

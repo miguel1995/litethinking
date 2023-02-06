@@ -5,7 +5,8 @@ const EditCompany = (props) => {
     const saveValues = async(values) =>{
 
         props.toggle();
-        
+        alert(values)
+
         const savedUserResponse = await fetch(
             "https://97nsdaz2xh.execute-api.us-east-1.amazonaws.com/companies",
             {
@@ -20,7 +21,7 @@ const EditCompany = (props) => {
 
     return (
         <div>
-            <FormCompany  handleSave={saveValues} user={props.company}/>
+            <FormCompany  handleSave={saveValues} company={props.company}/>
         </div>
     );
 }

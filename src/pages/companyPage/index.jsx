@@ -1,12 +1,13 @@
 import ListCompany from "../../components/company/listCompany";
 import ShowCompany from "../../components/company/showCompany";
+import ListProduct from "../../components/product/listProduct";
 
 const CompanyPage = () => {
 
     return (
         <div className="container">
             <ShowCompany></ShowCompany>
-            <ListCompany></ListCompany>
+            <ListProduct></ListProduct>
         </div>
     );
 }

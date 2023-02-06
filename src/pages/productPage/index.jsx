@@ -1,9 +1,10 @@
+import ShowProduct from "../../components/product/showProduct";
 
 const ProductPage = () => {
 
     return (
-        <div>
-            SOY Product PAGE
+        <div className="container">
+            <ShowProduct></ShowProduct>
         </div>
     );
 }
