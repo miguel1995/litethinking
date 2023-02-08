@@ -14,7 +14,8 @@ const ListCompany = () => {
     const navigate = useNavigate();
 
     const apiUrl = "https://97nsdaz2xh.execute-api.us-east-1.amazonaws.com"
-
+    
+    //Load Companies List from API
     const loadCompanies = async () => {
         const response = await fetch(`${apiUrl}/companies`, {
             method: "GET",

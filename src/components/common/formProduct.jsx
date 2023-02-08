@@ -1,18 +1,23 @@
-import { Formik, Field } from 'formik';
-import { useEffect } from 'react';
+import {  Formik} from 'formik';
+import { useParams } from 'react-router-dom';
 
 const FormProduct = (props) => {
 
-  // Similar to componentDidMount and componentDidUpdate:
-  useEffect(() => {
-   console.log(props);
-  }, []);   
+  let { companyId } = useParams();
+
+  const {
+    name,
+    code,
+    quantity,
+    price
+    } =props.product || "";
+
 
     return (
         <div>
 
         <Formik
-          initialValues={{name:props.product.name, code:props.product.code, quantity:props.product.quantity, price:props.product.price}}
+          initialValues={{name:name, code:code, quantity:quantity, price:price}}
           validate={values => {
             const errors = {};
             if(!values.name){
@@ -32,7 +37,10 @@ const FormProduct = (props) => {
             return errors;
           }}
           onSubmit={(values, { setSubmitting }) => {
-            values["id"]=props.product.id;
+            const currentDate = new Date();
+            const timestamp = currentDate.getTime();
+            values["id"]=(props.product)?props.product.id:timestamp.toString();
+            values["idCompany"]=parseInt(companyId);
             props.handleSave(JSON.stringify(values, null, 2));
             setSubmitting(false);
           }}
@@ -72,7 +80,7 @@ const FormProduct = (props) => {
                     value={values.code}
                     className="form-control"
                     id="InputAddress"
-                    placeholder="123 Main St" />
+                    placeholder="COD123" />
                 </div>
 
 
@@ -101,7 +109,7 @@ const FormProduct = (props) => {
                     id="price"
                     placeholder=""/>
                 </div>
-
+                
                 <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Save</button>
 
               </form>

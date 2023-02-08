@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { BsFillEyeFill, BsTrashFill } from "react-icons/bs";
+import { BsFillEyeFill, BsPlusSquare, BsTrashFill } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, Col, Modal, ModalBody, ModalHeader, Row } from "reactstrap";
+import CreateProduct from "./createProduct";
 import DeleteProduct from "./deleteProduct";
 
 
@@ -9,6 +10,7 @@ import DeleteProduct from "./deleteProduct";
 const ListProduct = (props) => {
 
     const [modal, setModal] = useState(false);
+    const [modalCreate, setModalCreate] = useState(false);
 
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
@@ -31,12 +33,28 @@ const ListProduct = (props) => {
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
         loadProducts();
-    });
+    },[]);
 
     const toggle = () => setModal(!modal);
+    const toggleCreate = () => setModalCreate(!modalCreate);
+
 
     return (
         <div>
+            {/*<!-- Button trigger modal -->*/}
+            <Button color="primary" onClick={toggleCreate}>
+                <BsPlusSquare/>  New Product
+            </Button>
+
+            <div>
+                <Modal isOpen={modalCreate} toggle={toggleCreate} >
+                    <ModalHeader toggle={toggleCreate}></ModalHeader>
+                    <ModalBody>
+                        <CreateProduct toggle={toggleCreate} confirmSave={loadProducts}/>
+                    </ModalBody>
+                </Modal>
+            </div>
+
             <table className="table">
                 <thead>
                     <tr>
