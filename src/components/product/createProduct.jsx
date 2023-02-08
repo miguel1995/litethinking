@@ -4,7 +4,6 @@ const CreateProduct = (props) => {
 
     const saveValues = async(values) =>{
 
-        alert(values);
         
         const savedUserResponse = await fetch(
             "https://97nsdaz2xh.execute-api.us-east-1.amazonaws.com/products",

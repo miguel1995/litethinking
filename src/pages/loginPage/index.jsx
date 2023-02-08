@@ -1,12 +1,16 @@
 import { Field, Formik } from "formik";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setLogin } from "../../state";
 
 const LoginPage = () => {
     
     const [isLogin, setIsLogin] = useState(true);
     const [isRegister, setIsRegister] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
 
     const createNewUser = async(values) =>{
 
@@ -36,7 +40,13 @@ const LoginPage = () => {
           );
   
           const responseLogin = await loginUser.json();
+
           if(responseLogin.status==='Ok'){
+            dispatch(setLogin({
+              user: responseLogin.user,
+              //token: loggedIn.token
+              token: "TOKEN"
+          }));
             navigate("/home");
           }else{
             console.log("responseLogin -> ",responseLogin);
@@ -76,10 +86,7 @@ const LoginPage = () => {
                                 return errors;
                             }}
                             onSubmit={(values, { setSubmitting }) => {
-                                setTimeout(() => {
-                                    alert(JSON.stringify(values, null, 2));
-                                    setSubmitting(false);
-                                }, 400);
+
 
                                 logInUser(JSON.stringify(values, null, 2));
 
@@ -178,7 +185,6 @@ const LoginPage = () => {
                           const currentDate = new Date();
                           const timestamp = currentDate.getTime();
                           values["id"]=timestamp.toString();
-                          alert(JSON.stringify(values, null, 2));
                           createNewUser(JSON.stringify(values, null, 2));
                         }}
                       >

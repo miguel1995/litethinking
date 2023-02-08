@@ -4,8 +4,6 @@ import FormCompany from "../common/formCompany";
 const CreateCompany = (props) => {
 
     const saveValues = async(values) =>{
-
-        alert(values);
         
         const savedUserResponse = await fetch(
             "https://97nsdaz2xh.execute-api.us-east-1.amazonaws.com/companies",
@@ -16,7 +14,6 @@ const CreateCompany = (props) => {
         );
 
         const savedUser = await savedUserResponse.json();
-        console.log(savedUser);
         props.toggle();
         props.confirmSave();
 

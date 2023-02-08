@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { BsFillEyeFill, BsPlusSquare, BsTrashFill } from "react-icons/bs";
+import { BsCloudDownload, BsDownload, BsEnvelopeFill, BsFillEyeFill, BsPlusSquare, BsTrashFill } from "react-icons/bs";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button, Col, Modal, ModalBody, ModalHeader, Row } from "reactstrap";
 import CreateCompany from "./createCompany";
@@ -12,6 +13,8 @@ const ListCompany = () => {
     const [modalCreate, setModalCreate] = useState(false);
     const [companies, setCompanies] = useState([]);
     const navigate = useNavigate();
+    const type = useSelector((state)=>state.user.type);
+    const isAdministrator = (type=="ADMINISTRATOR")?true:false;
 
     const apiUrl = "https://97nsdaz2xh.execute-api.us-east-1.amazonaws.com"
     
@@ -40,8 +43,7 @@ const ListCompany = () => {
             <Button color="primary" onClick={toggleCreate}>
                 <BsPlusSquare/>  New Company
             </Button>
-
-
+            
             <div>
                 <Modal isOpen={modalCreate} toggle={toggleCreate} >
                     <ModalHeader toggle={toggleCreate}></ModalHeader>
@@ -83,14 +85,17 @@ const ListCompany = () => {
                                                 >
                                                     <BsFillEyeFill />
                                                 </Button></Col>
-                                            <Col>
-                                                <Button
-                                                    onClick={toggle}
-                                                    color="danger"
-                                                >
-                                                    <BsTrashFill />
-                                                </Button>
-                                            </Col>
+                                                {isAdministrator&&(
+                                                    <Col>
+                                                    <Button
+                                                        onClick={toggle}
+                                                        color="danger"
+                                                    >
+                                                        <BsTrashFill />
+                                                    </Button>
+                                                </Col>
+                                                )}
+                                            
                                         </Row>
                                     </td>
                                     <td>

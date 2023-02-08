@@ -4,13 +4,14 @@ import LoginPage from './pages/loginPage';
 import UserPage from './pages/userPage';
 import CompanyPage from './pages/companyPage';
 import ProductPage from './pages/productPage';
+import {useSelector}from 'react-redux';
 
 
 function App() {
 
-  //TODO:VALIDAR LOGIN
-  //const isAuth = Boolean(useSelector((state)=>state.token));
-  const isAuth = true;
+  
+  const isAuth = Boolean(useSelector((state)=>state.token));
+  
 
   return (
     <div className="app">

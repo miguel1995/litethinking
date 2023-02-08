@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { BsFillPencilFill } from "react-icons/bs";
+import { useSelector } from "react-redux";
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import EditUser from "./editUser";
 
@@ -9,7 +10,7 @@ const ShowUser = () => {
     const [modal, setModal] = useState(false);
 
     const apiUrl = "https://97nsdaz2xh.execute-api.us-east-1.amazonaws.com"
-    const userId = 4;
+    const userId = useSelector((state)=>state.user.id);
 
     //Load User Info from API Backend
     const loadUser = async () => {
@@ -18,7 +19,6 @@ const ShowUser = () => {
             //headers: { Authorization: `Bearer ${token}` },
         });
         const data = await response.json();
-        console.log(data);
         setUser(data);
     };
 
