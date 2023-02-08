@@ -8,7 +8,7 @@ const UserPage = () => {
     return (
         <div className="container">
             <ShowUser></ShowUser>
-            <ListCompany></ListCompany>
+            <ListCompany/>
         </div>
     );
 }

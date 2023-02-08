@@ -1,7 +1,15 @@
-import { Formik, Field } from 'formik';
+import { Formik } from 'formik';
 import { useEffect } from 'react';
 
 const FormCompany = (props) => {
+
+  
+  const {
+    name,
+    address,
+    nit,
+    phone,
+  } =props.company || "";
 
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
@@ -12,7 +20,7 @@ const FormCompany = (props) => {
         <div>
 
         <Formik
-          initialValues={{name:props.company.name, address:props.company.address, nit:props.company.nit, phone:props.company.phone}}
+          initialValues={{name:name, address:address, nit:nit, phone:phone}}
           validate={values => {
             const errors = {};
             if(!values.name){
@@ -32,7 +40,9 @@ const FormCompany = (props) => {
             return errors;
           }}
           onSubmit={(values, { setSubmitting }) => {
-            values["id"]=props.company.id;
+            const currentDate = new Date();
+            const timestamp = currentDate.getTime();
+            values["id"]=(props.company)?props.company.id:timestamp.toString();
             props.handleSave(JSON.stringify(values, null, 2));
             setSubmitting(false);
           }}
@@ -101,7 +111,7 @@ const FormCompany = (props) => {
                     id="phone"
                     placeholder=""/>
                 </div>
-
+                <br/>
                 <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Save</button>
 
               </form>

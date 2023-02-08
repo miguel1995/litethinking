@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-import { BsFillEyeFill, BsTrashFill } from "react-icons/bs";
+import { BsFillEyeFill, BsPlusSquare, BsTrashFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { Button, Col, Modal, ModalBody, ModalHeader, Row } from "reactstrap";
+import CreateCompany from "./createCompany";
 import DeleteCompany from "./deleteCompany";
 
 
 const ListCompany = () => {
 
     const [modal, setModal] = useState(false);
+    const [modalCreate, setModalCreate] = useState(false);
     const [companies, setCompanies] = useState([]);
     const navigate = useNavigate();
 
@@ -29,9 +31,25 @@ const ListCompany = () => {
     }, []);
 
     const toggle = () => setModal(!modal);
+    const toggleCreate = () => setModalCreate(!modalCreate);
 
     return (
         <div>
+            {/*<!-- Button trigger modal -->*/}
+            <Button color="primary" onClick={toggleCreate}>
+                <BsPlusSquare/>  New Company
+            </Button>
+
+
+            <div>
+                <Modal isOpen={modalCreate} toggle={toggleCreate} >
+                    <ModalHeader toggle={toggleCreate}></ModalHeader>
+                    <ModalBody>
+                        <CreateCompany toggle={toggleCreate} confirmSave={loadCompanies}/>
+                    </ModalBody>
+                </Modal>
+            </div>
+
             <table className="table">
                 <thead>
                     <tr>

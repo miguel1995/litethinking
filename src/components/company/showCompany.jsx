@@ -28,7 +28,7 @@ const ShowCompany = () => {
 
     useEffect(() => {
         loadCompany();
-    });
+    },[]);
 
     if (!company) {
         return null;
