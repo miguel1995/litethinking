@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BsFillEyeFill, BsFillPencilFill, BsTrashFill } from "react-icons/bs";
+import { BsFillEyeFill, BsTrashFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { Button, Col, Modal, ModalBody, ModalHeader, Row } from "reactstrap";
 import DeleteCompany from "./deleteCompany";
@@ -23,6 +23,7 @@ const ListCompany = () => {
         setCompanies(data);
     };
 
+    // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
         loadCompanies();
     }, []);

@@ -17,6 +17,8 @@ const EditCompany = (props) => {
 
         const savedUser = await savedUserResponse.json();
         console.log(savedUser);
+        props.confirmSave();
+
     }
 
     return (

@@ -1,4 +1,3 @@
-import ListCompany from "../../components/company/listCompany";
 import ShowCompany from "../../components/company/showCompany";
 import ListProduct from "../../components/product/listProduct";
 

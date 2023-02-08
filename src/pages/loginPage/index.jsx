@@ -8,25 +8,21 @@ const LoginPage = () => {
     const [isRegister, setIsRegister] = useState(false);
     const navigate = useNavigate();
 
-    
-    const createNewUser = async(values) => {
-      
-      const loginUser = await fetch(
-        "https://97nsdaz2xh.execute-api.us-east-1.amazonaws.com/users/",
-        {
-            method: "PUT",
-            body: values,
-        }
-    );
+    const createNewUser = async(values) =>{
 
-    const responseLogin = await loginUser.json();
-    if(responseLogin.status==='Ok'){
+      const savedUserResponse = await fetch(
+          "https://97nsdaz2xh.execute-api.us-east-1.amazonaws.com/users",
+          {
+              method: "PUT",
+              body: values,
+          }
+      );
+
+      const savedUser = await savedUserResponse.json();
+      console.log(savedUser);      
       navigate("/home");
-    }else{
-      console.log("responseLogin -> ",responseLogin);
-      alert("Usuario o contraseña incorrectos")
-    }
-    }
+    
+  }
 
     const logInUser = async(values) => {
         
@@ -181,7 +177,7 @@ const LoginPage = () => {
                           const currentDate = new Date();
                           const timestamp = currentDate.getTime();
                           values["id"]=timestamp.toString();
-                          alert(values);
+                          alert(JSON.stringify(values, null, 2));
                           createNewUser(JSON.stringify(values, null, 2));
                         }}
                       >

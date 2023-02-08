@@ -1,33 +1,37 @@
 import { useEffect, useState } from "react";
-import { BsFillEyeFill, BsFillPencilFill, BsTrashFill } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import { BsFillEyeFill, BsTrashFill } from "react-icons/bs";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button, Col, Modal, ModalBody, ModalHeader, Row } from "reactstrap";
 import DeleteProduct from "./deleteProduct";
 
 
 
-const ListProduct = () => {
+const ListProduct = (props) => {
 
     const [modal, setModal] = useState(false);
 
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
 
+    let { companyId } = useParams();
+
+
     const apiUrl = "https://97nsdaz2xh.execute-api.us-east-1.amazonaws.com"
 
+    //Load Product List from API Backend
     const loadProducts = async () => {
-        const response = await fetch(`${apiUrl}/products`, {
+        const response = await fetch(`${apiUrl}/products/company/${companyId}`, {
             method: "GET",
             //headers: { Authorization: `Bearer ${token}` },
         });
         const data = await response.json();
-        console.log(data);
         setProducts(data);
     };
 
+    // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
         loadProducts();
-    }, []);
+    });
 
     const toggle = () => setModal(!modal);
 

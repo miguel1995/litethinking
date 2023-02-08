@@ -1,7 +1,7 @@
 import { Formik, Field } from 'formik';
 import { useEffect } from 'react';
 
-const FormCompany = (props) => {
+const FormProduct = (props) => {
 
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
@@ -12,27 +12,27 @@ const FormCompany = (props) => {
         <div>
 
         <Formik
-          initialValues={{name:props.company.name, address:props.company.address, nit:props.company.nit, phone:props.company.phone}}
+          initialValues={{name:props.product.name, code:props.product.code, quantity:props.product.quantity, price:props.product.price}}
           validate={values => {
             const errors = {};
             if(!values.name){
               errors.name = 'Required';
             }
             
-            if (!values.address) {
-              errors.address = 'Required';
+            if (!values.code) {
+              errors.code = 'Required';
             }
-            if(!values.nit){
-              errors.nit = 'Required';
+            if(!values.quantity){
+              errors.quantity = 'Required';
             }
-            if (!values.phone) {
-              errors.phone = 'Required';
+            if (!values.price) {
+              errors.price = 'Required';
             }
 
             return errors;
           }}
           onSubmit={(values, { setSubmitting }) => {
-            values["id"]=props.company.id;
+            values["id"]=props.product.id;
             props.handleSave(JSON.stringify(values, null, 2));
             setSubmitting(false);
           }}
@@ -52,7 +52,7 @@ const FormCompany = (props) => {
               <div className="form-group">
                   <label>Name</label>
                   <input
-                    type="name"
+                    type="text"
                     name="name"
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -63,13 +63,13 @@ const FormCompany = (props) => {
                 </div>
                 
                 <div className="form-group">
-                  <label>Address</label>
+                  <label>Code</label>
                   <input
                     type="text"
-                    name="address"
+                    name="code"
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    value={values.address}
+                    value={values.code}
                     className="form-control"
                     id="InputAddress"
                     placeholder="123 Main St" />
@@ -77,28 +77,28 @@ const FormCompany = (props) => {
 
 
                 <div className="form-group">
-                  <label>NIT</label>
+                  <label>Quantity</label>
                   <input
-                    type="text"
-                    name="nit"
+                    type="number"
+                    name="quantity"
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    value={values.nit}
+                    value={values.quantity}
                     className="form-control"
-                    id="nit"
+                    id="quantity"
                     placeholder="..."/>
                 </div>
                
                 <div className="form-group">
-                  <label>Phone Number</label>
+                  <label>Price</label>
                   <input
                     type="text"
-                    name="phone"
+                    name="price"
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    value={values.phone}
+                    value={values.price}
                     className="form-control"
-                    id="phone"
+                    id="price"
                     placeholder=""/>
                 </div>
 
@@ -114,4 +114,4 @@ const FormCompany = (props) => {
     );
 }
 
-export default FormCompany;
+export default FormProduct;

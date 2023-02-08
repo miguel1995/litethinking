@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BsFillPencilFill, BsFillPinFill, BsFillTelephoneFill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody} from 'reactstrap';
 import EditCompany from "./editCompany";
 
 
@@ -13,13 +13,14 @@ const ShowCompany = () => {
 
 
     const apiUrl = "https://97nsdaz2xh.execute-api.us-east-1.amazonaws.com"
+    //Load Company Info from API Backend
     const loadCompany = async () => {
         const response = await fetch(`${apiUrl}/companies/${companyId}`, {
             method: "GET"
             //headers: { Authorization: `Bearer ${token}` },
         });
 
-
+        console.log(response);
         const data = await response.json();
         console.log(data);
         setCompany(data);
@@ -27,7 +28,7 @@ const ShowCompany = () => {
 
     useEffect(() => {
         loadCompany();
-    }, []);
+    });
 
     if (!company) {
         return null;
@@ -72,7 +73,7 @@ const ShowCompany = () => {
                 <Modal isOpen={modal} toggle={toggle} >
                     <ModalHeader toggle={toggle}></ModalHeader>
                     <ModalBody>
-                        <EditCompany toggle={toggle} company={company}/>
+                        <EditCompany toggle={toggle} company={company} confirmSave={loadCompany}/>
                     </ModalBody>
                 </Modal>
             </div>

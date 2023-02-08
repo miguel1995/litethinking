@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { BsFillPencilFill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import EditCompany from "./editProduct";
 
 const ShowProduct = () => {
     const [product, setProduct] = useState(null);
@@ -10,21 +11,19 @@ const ShowProduct = () => {
     const apiUrl = "https://97nsdaz2xh.execute-api.us-east-1.amazonaws.com"
     let { productId } = useParams();
 
+    //Load Product Info from API Backend
     const loadProduct = async () => {
-
-        console.log("HAHAHAHAAHAH");
 
         const response = await fetch(`${apiUrl}/products/${productId}`, {
             method: "GET",
             //headers: { Authorization: `Bearer ${token}` },
         });
         const data = await response.json();
-        console.log(data);
         setProduct(data);
     };
 
+    // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
-        console.log("HAHAHAHAAHAH");
         loadProduct();
     }, []);
 
@@ -61,8 +60,7 @@ const ShowProduct = () => {
                 <Modal isOpen={modal} toggle={toggle} >
                     <ModalHeader toggle={toggle}></ModalHeader>
                     <ModalBody>
-
-
+                        <EditCompany toggle={toggle} product={product} confirmSave={loadProduct}/>
                     </ModalBody>
                 </Modal>
             </div>

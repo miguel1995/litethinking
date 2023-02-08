@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BsFillPencilFill } from "react-icons/bs";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import EditUser from "./editUser";
 
 const ShowUser = () => {
@@ -10,6 +10,8 @@ const ShowUser = () => {
 
     const apiUrl = "https://97nsdaz2xh.execute-api.us-east-1.amazonaws.com"
     const userId = 4;
+
+    //Load User Info from API Backend
     const loadUser = async () => {
         const response = await fetch(`${apiUrl}/users/${userId}`, {
             method: "GET",
@@ -20,6 +22,7 @@ const ShowUser = () => {
         setUser(data);
     };
 
+    // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
         loadUser();
     }, []);
