@@ -40,9 +40,11 @@ const ListCompany = () => {
     return (
         <div>
             {/*<!-- Button trigger modal -->*/}
+            {isAdministrator && (
+
             <Button color="primary" onClick={toggleCreate}>
                 <BsPlusSquare/>  New Company
-            </Button>
+            </Button>)}
             
             <div>
                 <Modal isOpen={modalCreate} toggle={toggleCreate} >

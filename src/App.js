@@ -14,7 +14,7 @@ function App() {
   
 
   return (
-    <div className="app">
+    <div style={{backgroundColor: "#7C96A8"}}>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<LoginPage/>}></Route>

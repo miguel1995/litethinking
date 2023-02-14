@@ -22,8 +22,8 @@ const ListProduct = (props) => {
     const navigate = useNavigate();
 
     let { companyId } = useParams();
-    const type = useSelector((state)=>state.user.type);
-    const isAdministrator = (type=="ADMINISTRATOR")?true:false;
+    const type = useSelector((state) => state.user.type);
+    const isAdministrator = (type == "ADMINISTRATOR") ? true : false;
 
 
 
@@ -42,8 +42,8 @@ const ListProduct = (props) => {
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
         loadProducts();
-        
-    },[]);
+
+    }, []);
 
     const toggle = () => setModal(!modal);
     const toggleCreate = () => setModalCreate(!modalCreate);
@@ -51,49 +51,49 @@ const ListProduct = (props) => {
 
 
     const [base64, setBase64] = useState("");
- 
+
     const onChange = (e) => {
-      const files = e.target.files;
-      const file = files[0];
-      getBase64(file);
+        const files = e.target.files;
+        const file = files[0];
+        getBase64(file);
     };
-   
+
     const onLoad = (fileString) => {
-      setBase64(fileString);
-      console.log(base64);
-    };
-   
-    const getBase64 = (file) => {
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        console.log(file);
-        onLoad(reader.result);
+        setBase64(fileString);
         console.log(base64);
-      };
     };
-   
+
+    const getBase64 = (file) => {
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            console.log(file);
+            onLoad(reader.result);
+            console.log(base64);
+        };
+    };
+
     const handleSubmit = (e) => {
-      e.preventDefault();
-      fetch(
-        "https://97nsdaz2xh.execute-api.us-east-1.amazonaws.com/products/sendemail",
-        {
-        mode: "no-cors",
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            senderName: "yiteni5897@bymercy.com",
-            senderEmail: "yiteni5897@bymercy.com",
-            message: "HELLO WORLD THIS IS FROM REACT APP P.S.",
-            base64Data: base64,
-            date: new Date(),
-            fileName: "TEST_FILE_NAME",
-          }),
-        }
-      );
+        e.preventDefault();
+        fetch(
+            "https://97nsdaz2xh.execute-api.us-east-1.amazonaws.com/products/sendemail",
+            {
+                mode: "no-cors",
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    senderName: "yiteni5897@bymercy.com",
+                    senderEmail: "yiteni5897@bymercy.com",
+                    message: "HELLO WORLD THIS IS FROM REACT APP P.S.",
+                    base64Data: base64,
+                    date: new Date(),
+                    fileName: "TEST_FILE_NAME",
+                }),
+            }
+        );
     };
 
 
@@ -110,37 +110,37 @@ const ListProduct = (props) => {
                 </form>
                 <button onClick={handleSubmit}>SEND TO LAMBDA</button>
                 </div>*/}
-
-            <Row>
-                <Col md="2">
-            {/*<!-- Button trigger modal -->*/}
-            <Button color="primary" onClick={toggleCreate}>
-                <BsPlusSquare/>  New Product
-            </Button>
-            </Col>
-            <Col md="2">
-                {/*<!-- Button Download PDF -->*/}
-            <PDFDownloadLink document={<DownloadPDF products={products}/>}
-            fileName="inventory.pdf"
-            >
-            <Button color="success">
-                <BsCloudDownload/>  Download
-            </Button>
-            </PDFDownloadLink>
-            </Col>
-            <Col md="2">
-            <Button color="success" onClick={toggleSend}>
-                <BsEnvelopeFill/>  Send to Email
-            </Button>
-            </Col>
-            </Row>
-
-                {/*<!-- Modal Dialog to create product -->*/}
+            {isAdministrator && (
+                <Row>
+                    <Col md="2">
+                        {/*<!-- Button trigger modal -->*/}
+                        <Button color="primary" onClick={toggleCreate}>
+                            <BsPlusSquare />  New Product
+                        </Button>
+                    </Col>
+                    <Col md="2">
+                        {/*<!-- Button Download PDF -->*/}
+                        <PDFDownloadLink document={<DownloadPDF products={products} />}
+                            fileName="inventory.pdf"
+                        >
+                            <Button color="success">
+                                <BsCloudDownload />  Download
+                            </Button>
+                        </PDFDownloadLink>
+                    </Col>
+                    <Col md="2">
+                        <Button color="success" onClick={toggleSend}>
+                            <BsEnvelopeFill />  Send to Email
+                        </Button>
+                    </Col>
+                </Row>
+            )}
+            {/*<!-- Modal Dialog to create product -->*/}
             <div>
                 <Modal isOpen={modalCreate} toggle={toggleCreate} >
                     <ModalHeader toggle={toggleCreate}></ModalHeader>
                     <ModalBody>
-                        <CreateProduct toggle={toggleCreate} confirmSave={loadProducts}/>
+                        <CreateProduct toggle={toggleCreate} confirmSave={loadProducts} />
                     </ModalBody>
                 </Modal>
             </div>
@@ -154,10 +154,10 @@ const ListProduct = (props) => {
                         <Input
                             type="email"
                         />
-                        
-                    <Button color="primary" onClick={()=>{console.log("Enviar Email")}}>
-                    <BsEnvelopeFill/>  Send
-                    </Button>
+
+                        <Button color="primary" onClick={() => { console.log("Enviar Email") }}>
+                            <BsEnvelopeFill />  Send
+                        </Button>
                     </ModalBody>
                 </Modal>
             </div>
@@ -171,7 +171,7 @@ const ListProduct = (props) => {
                         <th>Quiantity</th>
                         <th>Actions</th>
                         <th></th>
-                        
+
                     </tr>
                 </thead>
                 <tbody>
@@ -194,32 +194,30 @@ const ListProduct = (props) => {
                                                 >
                                                     <BsFillEyeFill />
                                                 </Button></Col>
-                                            <Col>
-                                                <Button
-                                                    onClick={toggle}
-                                                    color="danger"
-                                                >
-                                                    <BsTrashFill />
-                                                </Button>
-                                            </Col>
+                                            {isAdministrator && (
+
+                                                <Col>
+                                                    <Button
+                                                        onClick={toggle}
+                                                        color="danger"
+                                                    >
+                                                        <BsTrashFill />
+                                                    </Button>
+                                                </Col>
+                                            )}
                                         </Row>
                                     </td>
-                                    { isAdministrator &&(
                                     <td>
                                         <div>
-                                        <Modal isOpen={modal} toggle={toggle} >
-                                            <ModalHeader toggle={toggle}></ModalHeader>
-                                            <ModalBody>
-                                                <DeleteProduct toggle={toggle} product={data} confirmDelete={loadProducts}/>
-                                            </ModalBody>
-                                        </Modal>
+                                            <Modal isOpen={modal} toggle={toggle} >
+                                                <ModalHeader toggle={toggle}></ModalHeader>
+                                                <ModalBody>
+                                                    <DeleteProduct toggle={toggle} product={data} confirmDelete={loadProducts} />
+                                                </ModalBody>
+                                            </Modal>
                                         </div>
-                                    </td>)}
-                                    
+                                    </td>
                                 </tr>
-
-
-
                             )
                         })
                     }

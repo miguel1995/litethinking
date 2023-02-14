@@ -4,7 +4,7 @@ import ListProduct from "../../components/product/listProduct";
 const CompanyPage = () => {
 
     return (
-        <div className="container">
+        <div className="container" style={{backgroundColor: "#FFFFFFE6"}}>
             <ShowCompany></ShowCompany>
             <ListProduct></ListProduct>
         </div>

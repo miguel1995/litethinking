@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { BsFillPencilFill } from "react-icons/bs";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import EditCompany from "./editProduct";
@@ -10,6 +11,8 @@ const ShowProduct = () => {
 
     const apiUrl = "https://97nsdaz2xh.execute-api.us-east-1.amazonaws.com"
     let { productId } = useParams();
+    const type = useSelector((state) => state.user.type);
+    const isAdministrator = (type == "ADMINISTRATOR") ? true : false;
 
     //Load Product Info from API Backend
     const loadProduct = async () => {
@@ -48,9 +51,12 @@ const ShowProduct = () => {
                         <br />
                         <p className="lead">
                             {/*<!-- Button trigger modal -->*/}
-                            <Button color="primary" onClick={toggle}>
+                            {isAdministrator&&(
+                                <Button color="primary" onClick={toggle}>
                                 <BsFillPencilFill />  Edit
                             </Button>
+                            )}
+                            
                         </p>
                     </div>
                 </div>

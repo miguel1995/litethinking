@@ -1,5 +1,6 @@
 import { Formik, Field } from 'formik';
 import { useEffect } from 'react';
+import md5 from "md5";
 
 const FormUser = (props) => {
 
@@ -11,7 +12,7 @@ const FormUser = (props) => {
     return (
         <div>
             <Formik
-                initialValues={{ name: props.user.name, email: props.user.email, type: props.user.type, password: props.user.password }}
+                initialValues={{ name: props.user.name, email: props.user.email, type: props.user.type, password: "" }}
                 validate={values => {
                     const errors = {};
                     if (!values.name) {
@@ -27,16 +28,28 @@ const FormUser = (props) => {
                     if (!values.type) {
                         errors.type = 'Required';
                     }
-                    if (!values.password) {
+                    /*if (!values.password) {
                         errors.password = 'Required';
-                    }
+                    }*/
 
                     return errors;
                 }}
                 onSubmit={(values, { setSubmitting }) => {
                     values["id"]=props.user.id;
+                    if(values.password==""){
+                        values["password"] = props.user.password;
+                    }else{
+                        values["password"] = md5(values.password);
+                    }
+                    
                     props.handleSave(JSON.stringify(values, null, 2));
                     setSubmitting(false);
+
+
+                            
+                            
+                            
+
                 }}
             >
                 {({

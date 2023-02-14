@@ -3,7 +3,7 @@ import ShowProduct from "../../components/product/showProduct";
 const ProductPage = () => {
 
     return (
-        <div className="container">
+        <div className="container" style={{backgroundColor: "#FFFFFFC8"}}>
             <ShowProduct></ShowProduct>
         </div>
     );
